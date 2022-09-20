@@ -1,13 +1,20 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from pyvirtualdisplay import Display
 import time
 import re
 
 
+
 def Search_shoes():
-    chrome_path='chromedriver.exe'
-    driver=webdriver.Chrome(chrome_path)
+    # chrome_path='chromedriver'
+    # driver=webdriver.Chrome(chrome_path)
+    display=Display(visible=0, size=(1920, 1080))
+    display.start()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get('https://www.luck-d.com/')
     results=driver.find_element(By.ID,'ogIntro')
     Clicks_group=results.find_elements(By.CSS_SELECTOR,'.agent_site_info img') # 사이트 들어가기agent_site_info

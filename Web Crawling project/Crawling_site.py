@@ -7,6 +7,21 @@ from pyvirtualdisplay import Display
 import time
 import re
 
+def Change_price(tag):
+    driver1= webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    display2=Display(visible=0, size=(1920, 1080))
+    display2.start()
+    URL='https://kream.co.kr/search?keyword='
+    Base_URL=f'{tag}'#여기에 신발 코드 받기 
+    driver1.get(URL+Base_URL)
+    name_click=driver1.find_element(By.XPATH,'//*[@id="__layout"]/div/div[2]/div[5]/div/div[3]/div[1]/div/a/div[2]/div[1]/p[2]')
+    name_click.click()
+    price=driver1.find_element(By.XPATH,'//*[@id="__layout"]/div/div[2]/div[1]/div/div[2]/div/div[2]/div/dl/div[4]/dd').text
+    filter_pr=re.findall('[0-9]*',price)
+    Final_sp="".join(filter_pr)
+
+    return Final_sp
+
 
 
 def Search_shoes():
@@ -48,13 +63,11 @@ def Search_shoes():
             # 신발가격
             price_shoes=Newresults.find_elements(By.CLASS_NAME,'product_info_data')[3].text
             try:
-                # 미국 가격 적혀있는거 1달러당 1500원으로 해서 계산
-                if 'USD' in price_shoes:
-                    dis_price=re.findall("[0-9]*",price_shoes.strip())
-                    dis_price="".join(dis_price)
-                    dis_price=int(dis_price)
+                # 미국 가격 적혀있는거 크림 사이트에서 가격 다시 가져오기
+                if 'USD' or 'EUR' in price_shoes:
+                    
+                    dis_price=int(Change_price(Code_shoes))
 
-                    dis_price=dis_price*1500
                 else:
                     # 원화는 WON제거만하기 
                     dis_price=re.findall("[0-9]*",price_shoes.strip())

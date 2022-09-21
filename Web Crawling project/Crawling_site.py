@@ -20,7 +20,7 @@ def Search_shoes():
     Clicks_group=results.find_elements(By.CSS_SELECTOR,'.agent_site_info img') # 사이트 들어가기agent_site_info
     Information_shoes=[]
 
-    for Number_click in range(30):
+    for Number_click in range(40):
         try:
             #사이트 이름 한국제품인지 확인
             # print('작동확인1')

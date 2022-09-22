@@ -22,7 +22,7 @@ def Change_price(tag):
         price95=driver1.find_element(By.XPATH,'//*[@id="__layout"]/div/div[2]/div[1]/div/div[2]/div/div[2]/div/dl/div[4]/dd').text
         filter_pr=re.findall('[0-9]*',price95)
         Final_sp="".join(filter_pr)
-    except Exception as e:
+    except:
         Final_sp=0
         pass
     return Final_sp
@@ -42,7 +42,7 @@ def Search_shoes():
     Link_shoes=[]
     Find_shoes=[]
 
-    for Number_click in range(30):
+    for Number_click in range(40):
         try:
             #사이트 이름 한국제품인지 확인
             # print('작동확인1')
@@ -53,7 +53,8 @@ def Search_shoes():
             
         except:
             pass
-
+        Link_shoes=[]
+        
             # 한국에서 파는 제품 아닌거 걸러내기
         if korean_filter in disting_Koreaname2:
 
@@ -108,12 +109,18 @@ def Search_shoes():
                             Link=Link_pre.get_attribute('href')
                             #임시 변수에 신발이름, 신발코드, 가격, 링크 넣어두기
                             Link_shoes.append(Link)
+                                
                     else:  
                         pass
-                            
+                
+                
                 temp=[Name_shoes,Code_shoes,dis_price,Link_shoes]
-                            # 크림에 보내줄 신발 Information_shoes리스트에 넣어두기
+                # 크림에 보내줄 신발 Information_shoes리스트에 넣어두기
                 Information_shoes.append(temp)
+                
+                
+                            
+                
             else:
                 pass
         
@@ -136,7 +143,7 @@ def Search_shoes():
     for information in Information_shoes:
         #가격 하고 신발 코드 없는거 걸러내기
         try:
-            # 사이트에 
+            
             if information[1]=='-' or information[2]=='':
                 pass
             else:
@@ -150,15 +157,16 @@ def Search_shoes():
 
                 Final_re=int(Final_re)
                 Compare_pirce=Final_re-information[2]
+                
+                
                 # 5만원 이상만 걸러내기
                 if Compare_pirce> 50000:
                     
                     shoe=[information[0],str(f'{Compare_pirce:,}'),information[3]]
-                    print('50000만원 이상 걸러내기',information[0],str(f'{Compare_pirce:,}'),information[3])
                     # send_me에 담아두기
                     Send_me.append(shoe)
         except:
             pass
 
     
-    return Send_me
+    return Send_me  

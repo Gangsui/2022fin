@@ -35,24 +35,21 @@ def start(update, context):
  
 def stop(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="작업을 중단합니다.")
- 
+
+
 def Shoes(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="신발을 검색합니다" )
     Send_me=Search_shoes()
 
     # 신발 사이트 링크가 여러개라면 풀어서 하나씩 보내기
-    a=1
+    
     for Final_send in Send_me:
         name1=str(Final_send[0])
         Price1=str(Final_send[1])
         for lin1 in Final_send[2]:
-            tot=[name1,Price1,lin1]
-            
-            
-        #     bot.send_message(Group_ID," ".join(tot))
-        #     time.sleep(1)
-        # time.sleep(10)
-
+            tot=[name1,'\n리셀 - 원래가격:',Price1,lin1]   
+            bot.send_message(Group_ID," ".join(tot))
+        
     bot.send_message(Group_ID,'조회 완료')
  
 start_handler = CommandHandler('start', start)

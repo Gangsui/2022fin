@@ -42,7 +42,7 @@ def Search_shoes():
     Link_shoes=[]
     Find_shoes=[]
 
-    for Number_click in range(40):
+    for Number_click in range(50):
         try:
             #사이트 이름 한국제품인지 확인
             # print('작동확인1')
